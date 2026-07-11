@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-route
 import { useSelector, useDispatch } from "react-redux";
 
 // ── Pages ─────────────────────────────────────────────────────────────────────
-import Navbar              from "./pages/Navbar";
 import Login               from "./pages/Login";
 import Register            from "./pages/Register";
 import Dashboard           from "./pages/Dashboard";
@@ -16,7 +15,8 @@ import Notifications       from "./pages/Notifications";
 import NotFound            from "./pages/NotFound";
 
 // ── Components ────────────────────────────────────────────────────────────────
-import NotifPanel          from "./components/NotifPanel";
+import Navbar              from "./components/Navbar";
+import NotifyPanel         from "./components/NotifyPanel";
 
 // ── Redux ─────────────────────────────────────────────────────────────────────
 import { getMyNotifications } from "./Reducer/NotificationSlice";
@@ -56,7 +56,7 @@ const AppLayout = () => {
         <Navbar onNotifOpen={handleNotifOpen} />
       )}
 
-      <NotifPanel
+      <NotifyPanel
         notifications={notifications}
         open={notifOpen}
         onClose={() => setNotifOpen(false)}
