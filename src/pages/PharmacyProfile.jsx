@@ -6,6 +6,7 @@ import {
   updatePharmacy,
 } from "../Reducer/PharmacySlice";
 import Loader from "../components/Loader";
+import VendorTypeMultiSelect from "../components/VendorTypeMultiSelect";
 
 const DAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
@@ -15,6 +16,7 @@ const DEFAULT_HOURS = DAYS.map((day) => ({
 
 const INITIAL = {
   name: "", registrationNumber: "", phone: "", email: "",
+  vendorType: [],
   address: { street: "", city: "", state: "", pincode: "" },
   longitude: "", latitude: "",
   isOpen24Hours: false,
@@ -39,6 +41,7 @@ const PharmacyProfile = () => {
         registrationNumber: myPharmacy.registrationNumber || "",
         phone:              myPharmacy.phone || "",
         email:              myPharmacy.email || "",
+        vendorType:         myPharmacy.vendorType || [],
         address: {
           street:  myPharmacy.address?.street  || "",
           city:    myPharmacy.address?.city    || "",
@@ -149,6 +152,13 @@ const PharmacyProfile = () => {
             <input type="email" className="form-input" value={form.email}
               onChange={(e) => set("email", e.target.value)} />
           </div>
+          <div className="form-group" style={{ gridColumn: "1 / -1" }}>
+            <label className="form-label">Vendor Type * (select all that apply)</label>
+            <VendorTypeMultiSelect
+              value={form.vendorType}
+              onChange={(vals) => set("vendorType", vals)}
+            />
+          </div>
         </div>
 
         {/* Address */}
@@ -234,7 +244,7 @@ const PharmacyProfile = () => {
             className="btn btn-primary btn-lg"
             onClick={handleSubmit}
             disabled={loading || !form.name || !form.registrationNumber ||
-              !form.phone || !form.longitude || !form.latitude}
+              !form.phone || !form.longitude || !form.latitude || form.vendorType.length === 0}
           >
             {loading
               ? <span className="loader loader-sm" />
